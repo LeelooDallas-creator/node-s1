@@ -1,4 +1,4 @@
-//jeu.js
+// find the number
 const readline = require("readline");
 
 // Création de l'interface readline

@@ -1,46 +1,129 @@
-//jeu.js
+// chifoumi.js
+const fs = require("fs");
 const readline = require("readline");
 
-// Création de l'interface readline
-const rl = readline.createInterface ({
-    input : process.stdin,
-    output : process.stdout,
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
 });
 
-const nombreSecret = Math.floor(Math.random()*100) + 1;
-let tentatives = 0;
-const maxTentatives = 10;
+const choices = ["pierre", "feuille", "ciseaux"];
 
-console.log("=== Jeu du nombre mystère ===");
-console.log("Je pense à un nombre entre 1 et 100");
-console.log(`tu as ${maxTentatives} tentatives pour trouver\n`);
+// stats d'une partie
+let stats = {
+  parties: 0,
+  joueur1: 0,
+  joueur2: 0,
+  egalites: 0,
+};
 
-function demanderNombre() {
-    rl.question(`Tentative ${tentatives + 1}/${maxTentatives} : Entre un nombre → ` , (reponse) => {
-        const guess = parseInt (reponse, 10);
+let manchesJouees = 0;
+const MAX_MANCHES = 3;
 
-        // Vérification si l'entrée est un nombre valide
-        if (isNaN(guess) || guess < 1 || guess > 100) {
-            console.log("⚠️ Entrée invalide. Merci de donner un nombre entre 1 et 100.\n");
-            return demanderNombre(); // redemande sans consommer de tentative
-        }
-
-        tentatives++;
-
-        if(guess === nombreSecret){
-            console.log(`🎉 Bravo ! Tu as trouvé le nombre ${nombreSecret} en ${tentatives} tentative(s).`)
-            return rl.close
-        } else if (guess < nombreSecret){
-            console.log("➡️ Le nombre est plus grand.\n");
-        } else {
-            console.log("⬅️ Le nombre est plus petit.\n");
-        }
-
-        if(tentatives >= maxTentatives){
-            console.log(`❌ Game Over ! Le nombre mystère était ${nombreSecret}.`)
-            return rl.close();
-        }
-        demanderNombre();
-        });
+// fonction aléatoire
+function getRandomChoice() {
+  return choices[Math.floor(Math.random() * choices.length)];
 }
-demanderNombre();
+
+// jouer une manche
+function playRound() {
+  const player1 = getRandomChoice();
+  const player2 = getRandomChoice();
+
+  console.log(`\nManche ${manchesJouees + 1}`);
+  console.log(`Joueur 1 : ${player1}`);
+  console.log(`Joueur 2 : ${player2}`);
+
+  if (player1 === player2) {
+    console.log("→ Égalité !");
+    stats.egalites++;
+  } else if (
+    (player1 === "pierre" && player2 === "ciseaux") ||
+    (player1 === "feuille" && player2 === "pierre") ||
+    (player1 === "ciseaux" && player2 === "feuille")
+  ) {
+    console.log("→ Joueur 1 gagne !");
+    stats.joueur1++;
+  } else {
+    console.log("→ Joueur 2 gagne !");
+    stats.joueur2++;
+  }
+
+  manchesJouees++;
+  stats.parties++;
+
+  console.log(
+    `Score actuel -> J1: ${stats.joueur1}, J2: ${stats.joueur2}, Égalités: ${stats.egalites}`
+  );
+
+  if (manchesJouees >= MAX_MANCHES) {
+    console.log("\n=== Partie terminée ===");
+    afficherResultatFinal();
+    menu(); // retour au menu mais sans possibilité de rejouer
+  } else {
+    menu();
+  }
+}
+
+function afficherResultatFinal() {
+  console.log("\nRésultat final :");
+  console.log(`Victoires Joueur 1 : ${stats.joueur1}`);
+  console.log(`Victoires Joueur 2 : ${stats.joueur2}`);
+  console.log(`Égalités : ${stats.egalites}`);
+
+  if (stats.joueur1 > stats.joueur2) {
+    console.log("🏆 Joueur 1 remporte la partie !");
+  } else if (stats.joueur2 > stats.joueur1) {
+    console.log("🏆 Joueur 2 remporte la partie !");
+  } else {
+    console.log("Match nul !");
+  }
+}
+
+function sauvegarderPartie() {
+  const fichier = "resultats_chifoumi.json";
+  fs.writeFileSync(fichier, JSON.stringify(stats, null, 2), "utf-8");
+  console.log(`Résultats sauvegardés dans "${fichier}" ✅`);
+}
+
+// menu principal
+function menu() {
+  console.log("\n--- Menu ---");
+  if (manchesJouees < MAX_MANCHES) {
+    console.log("1. Jouer une manche");
+  }
+  console.log("2. Voir les statistiques");
+  console.log("3. Quitter (sauvegarder et fermer)");
+
+  rl.question("Votre choix : ", (answer) => {
+    switch (answer.trim()) {
+      case "1":
+        if (manchesJouees < MAX_MANCHES) {
+          playRound();
+        } else {
+          console.log("⚠ La partie est déjà terminée (3 manches jouées).");
+          menu();
+        }
+        break;
+      case "2":
+        console.log("\n--- Statistiques ---");
+        console.log(`Manches jouées : ${manchesJouees}/${MAX_MANCHES}`);
+        console.log(`Victoires Joueur 1 : ${stats.joueur1}`);
+        console.log(`Victoires Joueur 2 : ${stats.joueur2}`);
+        console.log(`Égalités : ${stats.egalites}`);
+        menu();
+        break;
+      case "3":
+        console.log("\nFin du jeu.");
+        sauvegarderPartie();
+        rl.close();
+        break;
+      default:
+        console.log("Choix invalide !");
+        menu();
+    }
+  });
+}
+
+// démarrage
+menu();

@@ -1,0 +1,206 @@
+:root{
+  --white: #ffffff;
+  --pink-soft: #fff0f6;   
+  --pink: #ff66a3;       
+  --gray: #6b6b6b;
+  --muted: #f7f3f6;
+  --shadow: rgba(0,0,0,0.06);
+  --radius: 0.75rem;     
+  --container-max: 56.25rem; 
+  --font-sans: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; font-size: 16px; }
+
+body{
+  font-family: var(--font-sans);
+  background: linear-gradient(180deg, var(--pink-soft) 0%, var(--white) 60%);
+  color: #222;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height: 1.45;
+  padding: 1.25rem; 
+}
+
+header {
+  margin-bottom: 1.625rem; 
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 0.75rem; 
+  align-items: center;
+  padding-left: 0;
+}
+
+.site-nav a {
+  text-decoration: none;
+  color: var(--gray);
+  font-weight: 600;
+  padding: 0.625rem 1.125rem;
+  border-radius: 999px;
+  transition: all .18s ease;
+  display: inline-block;
+  font-size: 0.9375rem; 
+  background: var(--muted);
+  border: 0.0625rem solid rgba(0,0,0,0.04); 
+}
+
+.site-nav a:hover {
+  color: var(--pink);
+  background: var(--white);
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.375rem 1.125rem var(--shadow); 
+}
+
+.site-nav .nav-active a,
+.site-nav li.nav-active > a {
+  background: linear-gradient(90deg, rgba(255,102,163,0.12), rgba(255,102,163,0.05));
+  color: var(--pink);
+  box-shadow: 0 0.375rem 1.25rem rgba(255,102,163,0.08); 
+}
+
+.container{
+  max-width: var(--container-max);
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 2.25rem; 
+  box-shadow: 0 0.625rem 1.875rem var(--shadow);
+  border: 0.0625rem solid rgba(255,102,163,0.06);
+}
+
+h1{
+  font-size: 2.25rem; 
+  color: #222;
+  letter-spacing: 0.0375rem; 
+  margin-bottom: 0.625rem; 
+}
+
+p {
+  color: #444;
+  margin-bottom: 0.75rem;
+}
+
+output#generate-email{
+  display: inline-block;
+  background: linear-gradient(90deg, var(--pink-soft), var(--muted));
+  padding: 0.5rem 0.75rem; 
+  border-radius: 0.5rem; 
+  border: 0.0625rem solid rgba(255,102,163,0.08); 
+  font-weight: 600;
+  color: var(--pink);
+}
+
+/* Footer */
+.site-footer {
+  margin-top: 1.375rem; 
+  padding-top: 0.875rem; 
+  border-top: 0.0625rem solid rgba(0,0,0,0.04);
+  text-align: center;
+}
+
+.site-footer ul {
+  list-style: none;
+  display: flex;
+  gap: 1.125rem; 
+  justify-content: center;
+  padding: 0;
+}
+
+.site-footer a {
+  color: #777;
+  text-decoration: none;
+  font-size: 0.875rem; 
+  padding: 0.375rem 0.75rem; 
+  border-radius: 0.5rem; 
+  transition: all .15s ease;
+}
+
+.site-footer a:hover {
+  color: var(--pink);
+  background: var(--pink-soft);
+  text-decoration: none;
+}
+
+.toast {
+  position: fixed;
+  top: 1.25rem; 
+  right: 1.25rem; 
+  background: #4caf50;
+  color: white;
+  padding: 0.75rem 1.25rem; 
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(0,0,0,0.2); 
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; 
+}
+
+.contact-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-form label {
+  font-weight: 600;
+  color: var(--gray);
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.625rem 0.75rem; 
+  border-radius: var(--radius);
+  border: 0.0625rem solid rgba(0,0,0,0.1); /* 1px */
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0.25rem rgba(255,102,163,0.25);
+}
+
+.contact-form button {
+  padding: 0.75rem 1.25rem; 
+  border: none;
+  border-radius: var(--radius);
+  background: var(--pink);
+  color: var(--white);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.contact-form button:hover {
+  background: #ff4d90; 
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.25rem 0.5rem var(--shadow);
+}
+
+
+@media (max-width: 40rem) { 
+  .site-nav ul {
+    flex-wrap: wrap;
+  }
+
+  .container {
+    padding: 1.25rem; 
+    margin: 0 0.625rem; 
+  }
+
+  h1 {
+    font-size: 1.8rem; 
+  }
+}

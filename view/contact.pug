@@ -1,0 +1,16 @@
+extends ./layout/layout
+
+block content
+  .container
+    h1 Me contacter
+    form.contact-form(method="POST" action="/contact-me")
+      div.form-group
+        label(for="email") Votre email :
+        input#email(type="email" name="email" placeholder="exemple@mail.com" required)
+
+      div.form-group
+        label(for="message") Votre message :
+        textarea#message(name="message" rows="6" placeholder="Votre message..." required)
+
+      div.form-group
+        button(type="submit") Envoyer

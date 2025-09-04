@@ -1,0 +1,22 @@
+extends ./layout/layout
+
+block content
+  if success
+    div#toast.toast Votre demande de contact a bien été envoyée !
+  .container
+    h1 Leeloo Dallas Multipass
+    p Bienvenue sur mon portfolio
+    p Contactez-moi à l'adresse suivante :
+    output#generate-email
+
+block script
+  script.
+    (function preventSpam() {
+      const b64encodedEmail = "bGVlbG9vLmRhbGxhcy5tdWx0aXBhc3NAZXhhbXBsZS5jb20=";
+      document.getElementById("generate-email").textContent = atob(b64encodedEmail)
+    })();
+
+    const toast = document.getElementById("toast");
+    if (toast) {
+      setTimeout(() => toast.style.display = "none", 5000);
+    }

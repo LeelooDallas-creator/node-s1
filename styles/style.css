@@ -1,0 +1,133 @@
+/* Base */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e6f0ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Container */
+.container {
+    background-color: #ffffff;
+    padding: 1.875rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.1);
+    width: 28.125rem;
+}
+
+/* Navigation */
+nav a {
+    margin-right: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    color: #3a7bd5;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Toast */
+#toast {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background-color: #89c2ff;
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: none;
+}
+
+/* Formulaire */
+form label {
+    display: block;
+    margin-top: 0.9375rem;
+    font-weight: bold;
+    color: #4a90e2;
+}
+
+form input {
+    width: 100%;
+    padding: 0.625rem;
+    margin-top: 0.3125rem;
+    border: 0.0625rem solid #cce0ff;
+    border-radius: 0.75rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+form button {
+    margin-top: 1.25rem;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.9375rem;
+    background-color: #89c2ff;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #5aa0ff;
+}
+
+/* Tableau */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1.25rem;
+    border-radius: 0.9375rem;
+    overflow: hidden;
+    box-shadow: 0 0.25rem 0.625rem rgba(0,0,0,0.05);
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 0.0625rem solid #cce0ff;
+}
+
+th {
+    background-color: #d9e8ff;
+    color: #3a7bd5;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+table button, table a {
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.625rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+table form button {
+    background-color: #ff9999;
+    color: #fff;
+    border: none;
+}
+
+table a {
+    background-color: #89c2ff;
+    color: #fff;
+    margin-left: 0.3125rem;
+    display: inline-block;
+}
+
+table a:hover, table form button:hover {
+    opacity: 0.85;
+}

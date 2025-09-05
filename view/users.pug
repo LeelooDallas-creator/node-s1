@@ -1,0 +1,37 @@
+doctype html
+html(lang="fr")
+  head
+    meta(charset="UTF-8")
+    title Users
+    link(rel="stylesheet", href="/styles/style.css")
+  body
+    .container
+      nav
+        a(href="/") Home
+        a(href="/users") Users
+
+      #toast
+        p#toast-message
+
+      h1 Liste des utilisateurs
+      table
+        tr
+          th Nom
+          th Date de naissance
+          th Actions
+        each student, index in students
+          tr
+            td= student.name
+            td= formatDate(student.birth)
+            td
+              a(href=`/edit/${index}`) modifier
+              form(action=`/delete/${index}`, method="POST", style="display:inline")
+                button(type="submit") supprimer
+
+      if message
+        script.
+          const toast = document.getElementById('toast');
+          const msg = document.getElementById('toast-message');
+          msg.textContent = "#{message}";
+          toast.style.display = 'block';
+          setTimeout(()=>{toast.style.display='none';},3000);

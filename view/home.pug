@@ -1,0 +1,32 @@
+doctype html
+html(lang="fr")
+  head
+    meta(charset="UTF-8")
+    title Home
+    link(rel="stylesheet", href="/styles/style.css")
+  body
+    .container
+      nav
+        a(href="/") Home
+        a(href="/users") Users
+
+      #toast
+        p#toast-message
+
+      h1 #{student ? "Modifier l'étudiant" : "Ajouter un étudiant"}
+      form(action="/add", method="POST")
+        if student
+          input(type="hidden", name="id", value=studentIndex)
+        label(for="name") Nom:
+        input(type="text", name="name", id="name", required, value=student ? student.name : '')
+        label(for="birth") Date de naissance:
+        input(type="date", name="birth", id="birth", required, value=student ? student.birth : '')
+        button(type="submit") #{student ? 'Modifier' : 'Ajouter'}
+
+      if message
+        script.
+          const toast = document.getElementById('toast');
+          const msg = document.getElementById('toast-message');
+          msg.textContent = "#{message}";
+          toast.style.display = 'block';
+          setTimeout(()=>{toast.style.display='none';},3000);
